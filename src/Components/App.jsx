@@ -5,6 +5,7 @@ import PlayerForm from './PlayerForm';
 import PlayerList from './PlayerList';
 import CurrentPlayers from './CurrentPlayers';
 import UpdatePlayers from './UpdatePlayers';
+import ShowPlayers from './ShowPlayers';
 
 const App = () => {
   const [players, setPlayers] = useState([]);
@@ -14,7 +15,7 @@ const App = () => {
   const [currentBowlerIndex, setCurrentBowlerIndex] = useState(0);
 
   const addPlayer = (name) => {
-    const newPlayer = {name, id: players.length};
+    const newPlayer = {name};
     setPlayers([...players, newPlayer]);
   };
 
@@ -23,6 +24,8 @@ const App = () => {
     var revOrder = order.map(a => ({...a}));
     revOrder = revOrder.reverse();
     setBowlingOrder(revOrder);
+    console.log(battingOrder);
+    console.log(bowlingOrder);
   };
 
   const batsmanOut = () => {
@@ -31,23 +34,23 @@ const App = () => {
 
   const overComplete = () => {
     setCurrentBowlerIndex((prevIndex) => (prevIndex + 1)%players.length);
-    if (bowlingOrder[currentBowlerIndex] === battingOrder[currentBatsmanIndex]){
-      setCurrentBowlerIndex((prevIndex) => (prevIndex + 1)%players.length);
-    }
   };
 
   const currentBatsman = battingOrder[currentBatsmanIndex];
   const currentBowler = bowlingOrder[currentBowlerIndex];
 
   return (
+    <div class="d-flex justify-content-center">
     <div>
       <h1>
         Tuk Tuk Cricket
       </h1>
       <PlayerForm addPlayer={addPlayer}/>
+      {/* <ShowPlayers players= {players}></ShowPlayers> */}
       <PlayerList players = {players}  setBattingOrder = {battingOrderFunc} />
       <CurrentPlayers currentBatsman={currentBatsman} currentBowler={currentBowler} />
       <UpdatePlayers updateBatsman = {batsmanOut} updateBowler = {overComplete} />
+    </div>
     </div>
   )
 }

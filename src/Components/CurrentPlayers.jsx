@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const CurrentPlayers = ({ currentBatsman, currentBowler }) => {
   return (
     <div>
